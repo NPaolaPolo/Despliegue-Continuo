@@ -5,7 +5,7 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
+  compilacion:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,12 +19,23 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Compilar y empaquetar
-        run: mvn clean package
+      - name: compilar
+        run: mvn clean compile
+        
+  pruebas:
+    runs-on: ubuntu-latest
+    needs: compilacion
 
-      - name: Upload artifact
-        if: success()
-        uses: actions/upload-artifact@v4
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 21
+        uses: actions/setup-java@v4
         with:
-          name: artefacto-pruebas
-          path: target/
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Testeo
+        run: mvn clean test
