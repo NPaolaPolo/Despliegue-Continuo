@@ -5,7 +5,7 @@ import es.unican.ucred.movies.service.TMDbService;
 import es.unican.ucred.movies.ui.MainFrame;
 
 import javax.swing.*;
-import java.awt.*
+import java.awt.*;
 
 /**
  * Main application class for the UCRED Movies Browser.
